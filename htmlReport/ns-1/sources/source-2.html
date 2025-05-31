@@ -1,0 +1,179 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Delivery</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">&lt;empty package name&gt;</a>
+</div>
+
+<h1>Coverage Summary for Class: Delivery (&lt;empty package name&gt;)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Delivery</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (14/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (16/16)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;import java.text.DecimalFormat;
+&nbsp;
+&nbsp;/**
+&nbsp; * Class for imitating a work of delivery service with calculating a final cost by delivery parameters
+&nbsp; */
+&nbsp;public class Delivery {
+&nbsp;    public static final double MINIMUM_DELIVERY_AMOUNT = 400;
+&nbsp;
+&nbsp;    private final int destinationDistance;
+&nbsp;    private final CargoDimension cargoDimensions;
+&nbsp;    private final boolean isFragile;
+&nbsp;    private final ServiceWorkload deliveryServiceWorkload;
+&nbsp;
+<b class="fc">&nbsp;    public Delivery(int destinationDistance, CargoDimension cargoDimensions, boolean isFragile, ServiceWorkload deliveryServiceWorkload) {</b>
+<b class="fc">&nbsp;        this.destinationDistance = destinationDistance;</b>
+<b class="fc">&nbsp;        this.cargoDimensions = cargoDimensions;</b>
+<b class="fc">&nbsp;        this.isFragile = isFragile;</b>
+<b class="fc">&nbsp;        this.deliveryServiceWorkload = deliveryServiceWorkload;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns delivery cost or an error, if there are wrong input
+&nbsp;     * @return calculated cost or default if calculated is less than 400
+&nbsp;     */
+&nbsp;    public double calculateDeliveryCost() {
+<b class="fc">&nbsp;        if (this.isFragile &amp;&amp; this.destinationDistance &gt; 30)</b>
+<b class="fc">&nbsp;            throw new UnsupportedOperationException(&quot;Fragile cargo cannot be delivered for the distance more than 30&quot;);</b>
+&nbsp;
+<b class="fc">&nbsp;        double calculatedDeliveryCost = (getDestinationDistanceCostIncrease(this.destinationDistance) + this.cargoDimensions.getCostIncrease() + getFragileCostIncrease(this.isFragile)) * this.deliveryServiceWorkload.getDeliveryRate();</b>
+<b class="fc">&nbsp;        DecimalFormat df = new DecimalFormat(&quot;###&quot;);</b>
+<b class="fc">&nbsp;        return Math.max(Double.parseDouble(df.format(calculatedDeliveryCost)), MINIMUM_DELIVERY_AMOUNT);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns additional cost based on the destination distance
+&nbsp;     * @param destinationDistance - distance to the target
+&nbsp;     * @return calculated cost
+&nbsp;     */
+&nbsp;    private int getDestinationDistanceCostIncrease(int destinationDistance) {
+<b class="fc">&nbsp;        if (destinationDistance &gt; 30) return 300;</b>
+<b class="fc">&nbsp;        if (destinationDistance &gt; 10) return 200;</b>
+<b class="fc">&nbsp;        if (destinationDistance &gt; 2) return 100;</b>
+<b class="fc">&nbsp;        if (destinationDistance &gt;= 0) return 50;</b>
+<b class="fc">&nbsp;        throw new IllegalArgumentException(&quot;destinationDistance should be a positive number!&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns additional cost based on the fragility of the item
+&nbsp;     * @param isFragile - is item fragile or not
+&nbsp;     * @return calculated cost, zero for a not fragile item
+&nbsp;     */
+&nbsp;    private int getFragileCostIncrease(boolean isFragile) {
+<b class="fc">&nbsp;        return isFragile ? 300 : 0;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /*private int getFragileCostIncrease(boolean isFragile) {
+&nbsp;    if (isFragile) {
+&nbsp;        return 300; if yes=&gt; 300
+&nbsp;    } else {
+&nbsp;        return 0;
+&nbsp;    }
+&nbsp;}*/
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-05-30 19:47</div>
+</div>
+</body>
+</html>
